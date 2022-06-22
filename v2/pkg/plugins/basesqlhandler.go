@@ -186,7 +186,7 @@ func (h databaseHandler) FindPosixAccounts(hierarchy string) (entrylist []*ldap.
 	}
 
 	rows, err := h.database.cnx.Query(`
-		SELECT u.name,u.uidnumber,u.primarygroup,u.passbcrypt,u.passsha256,u.otpsecret,u.yubikey,u.othergroups,u.givenname,u.sn,u.mail,u.loginshell,u.homedirectory,u.disabled,u.custattr  
+		SELECT u.name,u.uidnumber,u.primarygroup,u.passbcrypt,u.passsha256,u.otpsecret,u.yubikey,u.othergroups,u.givenname,u.sn,u.mail,u.mobile,u.loginshell,u.homedirectory,u.disabled,u.custattr  
 		FROM users u`)
 	if err != nil {
 		return entries, err
@@ -198,7 +198,7 @@ func (h databaseHandler) FindPosixAccounts(hierarchy string) (entrylist []*ldap.
 	var custattrstr string
 	u := config.User{}
 	for rows.Next() {
-		err := rows.Scan(&u.Name, &u.UIDNumber, &u.PrimaryGroup, &u.PassBcrypt, &u.PassSHA256, &u.OTPSecret, &u.Yubikey, &otherGroups, &u.GivenName, &u.SN, &u.Mail, &u.LoginShell, &u.Homedir, &disabled, &custattrstr)
+		err := rows.Scan(&u.Name, &u.UIDNumber, &u.PrimaryGroup, &u.PassBcrypt, &u.PassSHA256, &u.OTPSecret, &u.Yubikey, &otherGroups, &u.GivenName, &u.SN, &u.Mail, &u.Mobile, &u.LoginShell, &u.Homedir, &disabled, &custattrstr)
 		if err != nil {
 			return entries, err
 		}
@@ -527,6 +527,13 @@ func (h databaseHandler) getAccount(hierarchy string, u config.User) *ldap.Entry
 	}
 
 	attrs = append(attrs, &ldap.EntryAttribute{"objectClass", []string{"posixAccount"}})
+
+
+	if len(u.Mobile) > 0 {
+		attrs = append(attrs, &ldap.EntryAttribute{"mobile", []string{u.LoginShell}})
+	} else {
+		attrs = append(attrs, &ldap.EntryAttribute{"mobile", []string{""}})
+	}
 
 	if len(u.LoginShell) > 0 {
 		attrs = append(attrs, &ldap.EntryAttribute{"loginShell", []string{u.LoginShell}})

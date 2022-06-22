@@ -149,6 +149,14 @@ func (h configHandler) FindPosixAccounts(hierarchy string) (entrylist []*ldap.En
 			attrs = append(attrs, &ldap.EntryAttribute{Name: "loginShell", Values: []string{"/bin/bash"}})
 		}
 
+
+		if len(u.Mobile) > 0 {
+			attrs = append(attrs, &ldap.EntryAttribute{Name: "mobile", Values: []string{u.LoginShell}})
+		} else {
+			attrs = append(attrs, &ldap.EntryAttribute{Name: "mobile", Values: []string{""}})
+		}
+
+
 		if len(u.Homedir) > 0 {
 			attrs = append(attrs, &ldap.EntryAttribute{Name: "homeDirectory", Values: []string{u.Homedir}})
 		} else {

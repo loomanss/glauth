@@ -80,6 +80,8 @@ type User struct {
 	UnixID        int // TODO: remove after deprecating UnixID on User and Group
 	UIDNumber     int
 	Mail          string
+	Mobile        string
+	Telephone     string
 	LoginShell    string
 	GivenName     string
 	SN            string
