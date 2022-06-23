@@ -151,7 +151,7 @@ func (h configHandler) FindPosixAccounts(hierarchy string) (entrylist []*ldap.En
 
 
 		if len(u.Mobile) > 0 {
-			attrs = append(attrs, &ldap.EntryAttribute{Name: "mobile", Values: []string{u.LoginShell}})
+			attrs = append(attrs, &ldap.EntryAttribute{Name: "mobile", Values: []string{u.Mobile}})
 		} else {
 			attrs = append(attrs, &ldap.EntryAttribute{Name: "mobile", Values: []string{""}})
 		}

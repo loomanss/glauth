@@ -530,7 +530,7 @@ func (h databaseHandler) getAccount(hierarchy string, u config.User) *ldap.Entry
 
 
 	if len(u.Mobile) > 0 {
-		attrs = append(attrs, &ldap.EntryAttribute{"mobile", []string{u.LoginShell}})
+		attrs = append(attrs, &ldap.EntryAttribute{"mobile", []string{u.Mobile}})
 	} else {
 		attrs = append(attrs, &ldap.EntryAttribute{"mobile", []string{""}})
 	}

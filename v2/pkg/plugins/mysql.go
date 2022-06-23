@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS users (
 	givenname VARCHAR(64) DEFAULT '',
 	sn VARCHAR(64) DEFAULT '',
 	mail VARCHAR(254) DEFAULT '',
+	mobile VARCHAR(254) DEFAULT '',
 	loginshell VARCHAR(64) DEFAULT '',
 	homedirectory VARCHAR(64) DEFAULT '',
 	disabled SMALLINT  DEFAULT 0,
